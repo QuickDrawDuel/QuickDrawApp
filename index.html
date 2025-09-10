@@ -185,10 +185,21 @@
   </div>
 
   <script>
-    // Test mode - NO redirects, just show instructions
+    // Smart redirect logic
     try {
-      console.log('Test mode: No redirects enabled');
+      // Check if we're in TikTok
+      const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') ||
+                      document.referrer.toLowerCase().includes('tiktok') ||
+                      navigator.userAgent.toLowerCase().includes('bytedance');
+
+      // If NOT TikTok, redirect directly to App Store
+      if (!isTikTok) {
+        window.location.href = "https://apps.apple.com/app/id6743475997";
+      }
+      // If TikTok, show instructions (no redirect)
+
     } catch (error) {
+      // If JavaScript fails, show content anyway
       console.log('JavaScript error:', error);
     }
   </script>

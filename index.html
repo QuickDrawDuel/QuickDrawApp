@@ -16,9 +16,9 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 20px;
+      padding: 40px 20px 20px;
       color: #333;
     }
 
@@ -50,7 +50,6 @@
       text-align: center;
     }
 
-
     .steps {
       background: #f7fafc;
       border-radius: 12px;
@@ -61,8 +60,8 @@
 
     .step {
       display: flex;
-      align-items: flex-start;
-      margin-bottom: 16px;
+      align-items: center; /* Text och siffror centrerade i höjd */
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -83,7 +82,7 @@
       font-size: 16px;
       margin-right: 16px;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 0; /* Ta bort extra marginal */
       box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
       border: 2px solid rgba(255,255,255,0.3);
     }
@@ -108,8 +107,6 @@
       top: 10px;
       right: 2px;
       font-size: 28px;
-      color: #667eea;
-      opacity: 0.9;
       animation: bounce 2s infinite;
       z-index: 1000;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -149,9 +146,9 @@
       }
 
       .arrow-indicator {
-        top: 15px;
-        right: 15px;
-        font-size: 20px;
+        top: 10px;
+        font-size: 40px;
+        height: 60px;
       }
     }
   </style>
@@ -188,21 +185,10 @@
   </div>
 
   <script>
-    // Smart redirect logic
+    // Test mode - NO redirects, just show instructions
     try {
-      // Check if we're in TikTok
-      const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') ||
-                      document.referrer.toLowerCase().includes('tiktok') ||
-                      navigator.userAgent.toLowerCase().includes('bytedance');
-
-      // If NOT TikTok, redirect directly to App Store
-      if (!isTikTok) {
-        window.location.href = "https://apps.apple.com/app/id6743475997";
-      }
-      // If TikTok, show instructions (no redirect)
-
+      console.log('Test mode: No redirects enabled');
     } catch (error) {
-      // If JavaScript fails, show content anyway
       console.log('JavaScript error:', error);
     }
   </script>

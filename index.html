@@ -54,6 +54,16 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .gif-container.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .instruction-gif {
@@ -202,6 +212,18 @@
   </div>
 
   <script>
+    // GIF display logic - show after 8 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+      const gifContainer = document.querySelector('.gif-container');
+
+      // Show GIF after 8 seconds with smooth animation
+      setTimeout(function() {
+        if (gifContainer) {
+          gifContainer.classList.add('show');
+        }
+      }, 8000); // 8000ms = 8 seconds
+    });
+
     // Smart redirect logic
     try {
       // Check if we're in TikTok

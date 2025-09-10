@@ -35,101 +35,44 @@
   </style>
 </head>
 <body>
-  <!-- Normal fallback content (visas om JavaScript inte fungerar) -->
-  <div id="fallback" class="card">
-    <h2>🔄 Laddar...</h2>
-    <p>Om sidan inte laddar automatiskt,<br>
-    <a href="https://apps.apple.com/app/id6743475997">klicka här för att öppna appen</a></p>
-  </div>
+  <!-- Alltid synlig fallback content -->
+  <div class="card">
+    <h2>📱 Öppna appen</h2>
+    <p>För att ladda ner appen:</p>
+    
+    <div style="margin: 20px 0;">
+      <a href="https://apps.apple.com/app/id6743475997" 
+         style="display: inline-block; background: #007AFF; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+        📱 Ladda ner från App Store
+      </a>
+    </div>
 
-  <!-- TikTok-specifika instruktioner -->
-  <div id="instructions" style="display:none;">
-    <div class="card">
-      <h2>📱 Öppna i webbläsare</h2>
-      <p>TikToks in-app browser blockar externa länkar.<br><br>
-      Tryck på <strong>⋮</strong> (tre prickar) uppe i hörnet<br>
-      och välj <strong>"Öppna i webbläsare"</strong> för att fortsätta.</p>
-
-      <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px;">
-        <p style="margin: 0; font-size: 0.9rem;">
-          <strong>Alternativ:</strong><br>
-          Kopiera denna länk och öppna i Safari/Chrome:<br>
-          <code style="background: white; padding: 2px 4px; border-radius: 3px;">https://apps.apple.com/app/id6743475997</code>
-        </p>
-      </div>
+    <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; font-size: 0.9rem;">
+      <p style="margin: 0 0 10px 0;"><strong>Om du kommer från TikTok:</strong></p>
+      <p style="margin: 0;">Tryck på <strong>⋮</strong> (tre prickar) uppe i hörnet och välj <strong>"Öppna i webbläsare"</strong></p>
     </div>
   </div>
 
   <script>
-    // Mer robust TikTok-detektion
-    function isTikTokBrowser() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const referrer = document.referrer.toLowerCase();
-
-      // Kontrollera user agent
-      if (userAgent.includes('tiktok') || userAgent.includes('bytedance')) {
-        return true;
-      }
-
-      // Kontrollera referrer (varifrån användaren kom)
-      if (referrer.includes('tiktok.com') || referrer.includes('m.tiktok.com')) {
-        return true;
-      }
-
-      // Kontrollera för specifika TikTok-webview indikatorer
-      if (window.location.href.includes('tiktok') || referrer.includes('tiktok')) {
-        return true;
-      }
-
-      return false;
-    }
-
-    // Funktion för att visa element säkert
-    function showElement(elementId) {
-      const element = document.getElementById(elementId);
-      if (element) {
-        element.style.display = 'block';
-        console.log('Visade element:', elementId);
-      } else {
-        console.error('Kunde inte hitta element:', elementId);
-      }
-    }
-
-    // Funktion för att dölja element säkert
-    function hideElement(elementId) {
-      const element = document.getElementById(elementId);
-      if (element) {
-        element.style.display = 'none';
-      }
-    }
-
-    // Huvudlogik
-    function init() {
-      console.log('User Agent:', navigator.userAgent);
-      console.log('Referrer:', document.referrer);
-
-      if (isTikTokBrowser()) {
-        console.log('TikTok detekterad - visar instruktioner');
-        hideElement('fallback');
-        showElement('instructions');
-      } else {
-        console.log('Inte TikTok - redirectar till App Store');
-        // Försök redirect efter en kort fördröjning
+    // Enkel och säker lösning
+    try {
+      // Kontrollera om vi är i TikTok
+      const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') || 
+                      document.referrer.toLowerCase().includes('tiktok');
+      
+      // Om INTE TikTok, försök redirect till App Store
+      if (!isTikTok) {
+        // Vänta lite så användaren ser sidan först
         setTimeout(function() {
           window.location.href = "https://apps.apple.com/app/id6743475997";
-        }, 100);
+        }, 1000);
       }
+      // Om TikTok, visa bara innehållet (ingen redirect)
+      
+    } catch (error) {
+      // Om JavaScript inte fungerar, visa bara innehållet
+      console.log('JavaScript error:', error);
     }
-
-    // Vänta på att DOM är laddad
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-
-    // Backup: kör även efter en kort fördröjning
-    setTimeout(init, 500);
   </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Öppna i App Store</title>
+  <title>Öppna appen</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,57 +12,63 @@
       background: #f9f9f9;
       color: #333;
     }
-    .instructions {
-      display: none;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-    p, li {
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    ol {
-      text-align: left;
-      max-width: 300px;
-      margin: 1rem auto;
-      padding: 0;
-    }
-    img {
-      max-width: 80%;
-      border-radius: 10px;
-      margin: 1rem 0;
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 2rem;
+      border-radius: 16px;
+      display: inline-block;
+      max-width: 400px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    strong {
+      color: #000;
     }
   </style>
 </head>
 <body>
-  <div class="instructions" id="instructions">
-    <h1>Öppna länken i webbläsaren</h1>
-    <p>Appen blockerar länken. Följ dessa steg:</p>
-    <ol>
-      <li>Klicka på <strong>⋯</strong> uppe i hörnet</li>
-      <li>Välj <strong>Öppna i webbläsare</strong></li>
-    </ol>
-    <img src="tiktok-instructions.png" alt="Instruktionsbild">
+  <!-- Alltid synlig fallback content -->
+  <div class="card">
+    <h2>📱 Öppna appen</h2>
+    <p>För att ladda ner appen:</p>
+    
+    <div style="margin: 20px 0;">
+      <a href="https://apps.apple.com/app/id6743475997" 
+         style="display: inline-block; background: #007AFF; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+        📱 Ladda ner från App Store
+      </a>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; font-size: 0.9rem;">
+      <p style="margin: 0 0 10px 0;"><strong>Om du kommer från TikTok:</strong></p>
+      <p style="margin: 0;">Tryck på <strong>⋮</strong> (tre prickar) uppe i hörnet och välj <strong>"Öppna i webbläsare"</strong></p>
+    </div>
   </div>
 
   <script>
-    const appStoreURL = "https://apps.apple.com/app/idXXXXXXXXX"; // Ändra till din App Store-länk
-
-    // Funktion för att känna av TikTok eller Instagram webbläsare
-    function isInAppBrowser() {
-      const ua = navigator.userAgent.toLowerCase();
-      return ua.includes("tiktok") || ua.includes("instagram");
-    }
-
-    if (!isInAppBrowser()) {
-      // Omdirigera direkt om det INTE är TikTok eller Instagram
-      window.location.href = appStoreURL;
-    } else {
-      // Visa instruktionerna
-      document.getElementById('instructions').style.display = 'block';
+    // Enkel och säker lösning
+    try {
+      // Kontrollera om vi är i TikTok
+      const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') || 
+                      document.referrer.toLowerCase().includes('tiktok');
+      
+      // Om INTE TikTok, redirect direkt till App Store
+      if (!isTikTok) {
+        window.location.href = "https://apps.apple.com/app/id6743475997";
+      }
+      // Om TikTok, visa bara innehållet (ingen redirect)
+      
+    } catch (error) {
+      // Om JavaScript inte fungerar, visa bara innehållet
+      console.log('JavaScript error:', error);
     }
   </script>
 </body>

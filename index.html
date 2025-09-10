@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Öppna appen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 2rem;
+      border-radius: 16px;
+      display: inline-block;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    strong {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="instructions" style="display:none;">
+    <div class="card">
+      <h2>Öppna i webbläsare</h2>
+      <p>TikToks webbläsare blockar länken.<br><br>
+      Tryck på <strong>···</strong> uppe i hörnet och välj  
+      <strong>"Öppna i webbläsare"</strong> för att fortsätta.</p>
+    </div>
+  </div>
+
+  <script>
+    function isTikTokBrowser() {
+      return navigator.userAgent.toLowerCase().includes("tiktok");
+    }
+
+    if (isTikTokBrowser()) {
+      document.getElementById("instructions").style.display = "block";
+    } else {
+      window.location.href = "https://apps.apple.com/app/id6743475997";
+    }
+  </script>
+</body>
+</html>

@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Draw ⚡</title>
+  
+  <!-- FAVICON & ICONS (Lagt till dessa) -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/S7X3h6L8/QD.png">
+  <link rel="apple-touch-icon" href="https://i.ibb.co/S7X3h6L8/QD.png">
+
+  <!-- SOCIAL PREVIEW (Lagt till dessa för snyggare länkning) -->
+  <meta property="og:title" content="Quick Draw ⚡">
+  <meta property="og:description" content="Open in App Store to play!">
+  <meta property="og:image" content="https://i.ibb.co/S7X3h6L8/QD.png">
+  <meta property="og:type" content="website">
+
   <style>
     * {
       margin: 0;
@@ -34,6 +45,16 @@
       overflow: hidden;
     }
 
+    /* --- NY CSS FÖR LOGGAN --- */
+    .app-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px; /* Ger den en "app-ikon"-form */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
     h1 {
       font-size: 28px;
       font-weight: 700;
@@ -58,6 +79,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-top: 10px; /* Lite extra luft ovanför giffen */
     }
 
     .gif-container.show {
@@ -83,7 +105,7 @@
 
     .step {
       display: flex;
-      align-items: center; /* Text och siffror centrerade i höjd */
+      align-items: center;
       margin-bottom: 24px;
       text-align: left;
     }
@@ -105,7 +127,7 @@
       font-size: 16px;
       margin-right: 16px;
       flex-shrink: 0;
-      margin-top: 0; /* Ta bort extra marginal */
+      margin-top: 0;
       box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
       border: 2px solid rgba(255,255,255,0.3);
     }
@@ -163,6 +185,11 @@
       h1 {
         font-size: 20px;
       }
+      
+      .app-logo {
+        width: 70px;
+        height: 70px;
+      }
 
       .steps {
         padding: 20px;
@@ -180,8 +207,10 @@
   <div class="arrow-indicator">👆</div>
 
   <div class="container">
+    <!-- HÄR ÄR LOGGAN -->
+    <img src="https://i.ibb.co/S7X3h6L8/QD.png" alt="Quick Draw App Logo" class="app-logo">
+
     <h1>Open in App Store</h1>
-    <p class="subtitle">Follow these 3 simple steps</p>
 
     <div class="steps">
       <div class="step">
@@ -212,24 +241,24 @@
   </div>
 
   <script>
-    // GIF display logic - show after 8 seconds
+    // GIF display logic - show quickly
     document.addEventListener('DOMContentLoaded', function() {
       const gifContainer = document.querySelector('.gif-container');
 
-      // Show GIF after 8 seconds with smooth animation
+      // Show GIF after just 0.5 seconds (smooth entrance) instead of waiting
       setTimeout(function() {
         if (gifContainer) {
           gifContainer.classList.add('show');
         }
-      }, 6000); // 8000ms = 8 seconds
+      }, 500); 
     });
 
     // Smart redirect logic
     try {
       // Check if we're in TikTok
       const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') ||
-                      document.referrer.toLowerCase().includes('tiktok') ||
-                      navigator.userAgent.toLowerCase().includes('bytedance');
+                       document.referrer.toLowerCase().includes('tiktok') ||
+                       navigator.userAgent.toLowerCase().includes('bytedance');
 
       // If NOT TikTok, redirect directly to App Store
       if (!isTikTok) {
@@ -244,4 +273,3 @@
   </script>
 </body>
 </html>
-

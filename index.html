@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Draw ⚡</title>
-  
-  <!-- FAVICON & ICONS (Lagt till dessa) -->
+
   <link rel="icon" type="image/png" href="https://i.ibb.co/S7X3h6L8/QD.png">
   <link rel="apple-touch-icon" href="https://i.ibb.co/S7X3h6L8/QD.png">
 
-  <!-- SOCIAL PREVIEW (Lagt till dessa för snyggare länkning) -->
   <meta property="og:title" content="Quick Draw ⚡">
-  <meta property="og:description" content="Open in App Store to play!">
+  <meta property="og:description" content="Open in App Store / Play Store to play!">
   <meta property="og:image" content="https://i.ibb.co/S7X3h6L8/QD.png">
   <meta property="og:type" content="website">
 
@@ -37,7 +36,7 @@
       background: white;
       border-radius: 24px;
       padding: 40px 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
       text-align: center;
       max-width: 400px;
       width: 100%;
@@ -45,12 +44,11 @@
       overflow: hidden;
     }
 
-    /* --- NY CSS FÖR LOGGAN --- */
     .app-logo {
       width: 80px;
       height: 80px;
-      border-radius: 18px; /* Ger den en "app-ikon"-form */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin-bottom: 24px;
       display: inline-block;
     }
@@ -74,17 +72,17 @@
     .gif-container {
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       opacity: 0;
+      max-height: 0;
       transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      margin-top: 10px; /* Lite extra luft ovanför giffen */
+      transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+      margin-top: 10px;
     }
 
     .gif-container.show {
-      display: block;
       opacity: 1;
+      max-height: 600px;
       transform: translateY(0);
     }
 
@@ -127,9 +125,8 @@
       font-size: 16px;
       margin-right: 16px;
       flex-shrink: 0;
-      margin-top: 0;
       box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.3);
     }
 
     .step-content h4 {
@@ -154,23 +151,34 @@
       font-size: 28px;
       animation: bounce 2s infinite;
       z-index: 1000;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       border-radius: 50%;
       width: 50px;
       height: 50px;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
 
+    .arrow-indicator.visible {
+      display: flex;
+    }
+
     @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
         transform: translateY(0);
       }
+
       40% {
         transform: translateY(-5px);
       }
+
       60% {
         transform: translateY(-3px);
       }
@@ -185,7 +193,7 @@
       h1 {
         font-size: 20px;
       }
-      
+
       .app-logo {
         width: 70px;
         height: 70px;
@@ -195,38 +203,37 @@
         padding: 20px;
       }
 
-      .arrow-indicator {
+      .arrow-indicator.visible {
         top: 10px;
         font-size: 40px;
         height: 60px;
       }
     }
   </style>
+  <script data-goatcounter="https://quickdraw.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
+
 <body>
   <div class="arrow-indicator">👆</div>
 
   <div class="container">
-    <!-- HÄR ÄR LOGGAN -->
     <img src="https://i.ibb.co/S7X3h6L8/QD.png" alt="Quick Draw App Logo" class="app-logo">
 
-    <h1>Open in App Store</h1>
+    <h1 id="page-title">Open in App Store</h1>
 
-    <div class="steps">
+    <div class="steps" id="steps-container">
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
           <h4>Tap <strong class="menu-dots">⋯</strong> in the top right corner ↗️</h4>
         </div>
       </div>
-
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
           <h4>Tap <strong class="browser-text">"Open in browser"</strong></h4>
         </div>
       </div>
-
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
@@ -236,40 +243,82 @@
     </div>
 
     <div class="gif-container">
-      <img src="https://s14.gifyu.com/images/bT8kB.gif" alt="Guide on how to open in App Store" class="instruction-gif">
+      <img src="https://s14.gifyu.com/images/bT8kB.gif" alt="Guide on how to open in browser" class="instruction-gif">
     </div>
   </div>
 
   <script>
-    // GIF display logic - show quickly
-    document.addEventListener('DOMContentLoaded', function() {
-      const gifContainer = document.querySelector('.gif-container');
+    // Detect platform
+    const ua = navigator.userAgent.toLowerCase();
 
-      // Show GIF after just 0.5 seconds (smooth entrance) instead of waiting
-      setTimeout(function() {
-        if (gifContainer) {
-          gifContainer.classList.add('show');
-        }
-      }, 500); 
-    });
+    const isTikTok = ua.includes('tiktok') ||
+      document.referrer.toLowerCase().includes('tiktok') ||
+      ua.includes('bytedance');
 
-    // Smart redirect logic
-    try {
-      // Check if we're in TikTok
-      const isTikTok = navigator.userAgent.toLowerCase().includes('tiktok') ||
-                       document.referrer.toLowerCase().includes('tiktok') ||
-                       navigator.userAgent.toLowerCase().includes('bytedance');
+    const isAndroid = ua.includes('android');
 
-      // If NOT TikTok, redirect directly to App Store
-      if (!isTikTok) {
-        window.location.href = "https://apps.apple.com/app/id6743475997";
+    // Update title and steps based on platform
+    const title = document.getElementById('page-title');
+    const stepsContainer = document.getElementById('steps-container');
+
+    // Show arrow only inside TikTok's in-app browser
+    if (isTikTok) {
+      const arrow = document.querySelector('.arrow-indicator');
+      arrow.classList.add('visible');
+
+      if (isAndroid) {
+        arrow.style.top = 'auto';
+        arrow.style.bottom = '10px';
+        arrow.textContent = '👇';
       }
-      // If TikTok, show instructions (no redirect)
+    }
 
+    if (isAndroid) {
+      title.textContent = 'Open in Play Store';
+      stepsContainer.innerHTML = `
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Tap <strong class="menu-dots">⋯</strong> in the top right corner ↗️</h4>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Tap <strong class="browser-text">"Open in Chrome"</strong></h4>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Done! 🎉</h4>
+          </div>
+        </div>
+      `;
+    }
+    // iOS/unknown: default content is already in the HTML, no JS override needed
+
+    // Redirect logic
+    try {
+      if (!isTikTok) {
+        if (isAndroid) {
+          window.location.href = "https://play.google.com/store/apps/details?id=com.shahan.quickdrawandroid";
+        } else {
+          window.location.href = "https://apps.apple.com/app/id6743475997";
+        }
+      }
     } catch (error) {
-      // If JavaScript fails, show content anyway
       console.log('JavaScript error:', error);
     }
+
+    // Show GIF after 0.5s
+    const gifContainer = document.querySelector('.gif-container');
+    setTimeout(function () {
+      if (gifContainer) {
+        gifContainer.classList.add('show');
+      }
+    }, 500);
   </script>
 </body>
+
 </html>

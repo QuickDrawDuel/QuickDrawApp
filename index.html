@@ -302,7 +302,12 @@
     try {
       if (!isTikTok) {
         if (isAndroid) {
-          window.location.href = "https://play.google.com/store/apps/details?id=com.shahan.quickdrawandroid";
+          // Use market:// to open native Play Store app (user is logged in there)
+          window.location.href = "market://details?id=com.shahan.quickdrawandroid";
+          // Fallback to web URL if market:// doesn't work (e.g. no Play Store installed)
+          setTimeout(function () {
+            window.location.href = "https://play.google.com/store/apps/details?id=com.shahan.quickdrawandroid";
+          }, 1500);
         } else {
           window.location.href = "https://apps.apple.com/app/id6743475997";
         }

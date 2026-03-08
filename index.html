@@ -214,7 +214,7 @@
 </head>
 
 <body>
-  <div class="arrow-indicator">👆</div>
+  <div class="arrow-indicator visible">👆</div>
 
   <div class="container">
     <img src="https://i.ibb.co/S7X3h6L8/QD.png" alt="Quick Draw App Logo" class="app-logo">
@@ -297,8 +297,6 @@
     try {
       if (!isTikTok) {
         if (isAndroid) {
-          // Use intent:// to open native Play Store app directly
-          // S.browser_fallback_url provides fallback if Play Store app isn't available
           window.location.href = "intent://details?id=com.shahan.quickdrawandroid#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.shahan.quickdrawandroid;end";
         } else {
           window.location.href = "https://apps.apple.com/app/id6743475997";
@@ -319,4 +317,3 @@
 </body>
 
 </html>
-

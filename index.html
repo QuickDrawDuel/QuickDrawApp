@@ -4,17 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quick Draw ⚡</title>
+  <title>Get Quick Draw ⚡</title>
 
   <link rel="icon" type="image/png" href="https://i.ibb.co/S7X3h6L8/QD.png">
   <link rel="apple-touch-icon" href="https://i.ibb.co/S7X3h6L8/QD.png">
 
-  <meta property="og:title" content="Quick Draw ⚡">
-  <meta property="og:description" content="Open in App Store / Play Store to play!">
+  <meta property="og:title" content="Get Quick Draw ⚡">
+  <meta property="og:description" content="Turn your phone into a pistol and challenge your friends to a cowboy duel.">
   <meta property="og:image" content="https://i.ibb.co/S7X3h6L8/QD.png">
   <meta property="og:type" content="website">
 
   <style>
+    :root {
+      --purple: #6d5ce7;
+      --purple-dark: #4d3bbf;
+      --ink: #242238;
+      --muted: #6f6b83;
+      --line: #e7e3f2;
+      --surface: #ffffff;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -22,89 +31,183 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
+      padding: 48px 20px;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      padding: 40px 20px 20px;
-      color: #333;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.22), transparent 28%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .container {
-      background: white;
-      border-radius: 24px;
-      padding: 40px 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      max-width: 400px;
+    .card {
       width: 100%;
-      position: relative;
+      max-width: 620px;
+      padding: 52px;
       overflow: hidden;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 32px;
+      box-shadow: 0 28px 80px rgba(43, 27, 91, 0.28);
     }
 
     .app-logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 24px;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 20px;
       display: inline-block;
+      border-radius: 21px;
+      box-shadow: 0 10px 28px rgba(64, 45, 139, 0.2);
     }
 
     h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #2d3748;
-      text-align: center;
+      margin-bottom: 12px;
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.1;
+      letter-spacing: -1.2px;
     }
 
-    .subtitle {
-      font-size: 16px;
-      color: #718096;
-      margin-bottom: 20px;
-      line-height: 1.5;
-      text-align: center;
+    .lead {
+      max-width: 470px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
     }
 
-    .gif-container {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      max-height: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
-      margin-top: 10px;
+    .desktop-content,
+    .tiktok-content {
+      display: none;
     }
 
-    .gif-container.show {
-      opacity: 1;
-      max-height: 600px;
-      transform: translateY(0);
-    }
-
-    .instruction-gif {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
+    .desktop-content.visible,
+    .tiktok-content.visible {
       display: block;
     }
 
+    .qr-frame {
+      width: 260px;
+      height: 260px;
+      margin: 34px auto 20px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 24px;
+    }
+
+    .qr-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .scan-title {
+      margin-bottom: 6px;
+      font-size: 18px;
+      font-weight: 750;
+    }
+
+    .scan-copy {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      margin: 30px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #9994ad;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 1.1px;
+    }
+
+    .divider::before,
+    .divider::after {
+      height: 1px;
+      flex: 1;
+      content: "";
+      background: var(--line);
+    }
+
+    .store-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .store-button {
+      min-height: 64px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      color: #fff;
+      text-decoration: none;
+      background: var(--ink);
+      border-radius: 16px;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .store-button:hover {
+      transform: translateY(-2px);
+      background: var(--purple-dark);
+      box-shadow: 0 10px 24px rgba(77, 59, 191, 0.22);
+    }
+
+    .store-button:focus-visible {
+      outline: 3px solid rgba(109, 92, 231, 0.35);
+      outline-offset: 3px;
+    }
+
+    .store-icon {
+      width: 25px;
+      height: 25px;
+      flex: 0 0 auto;
+      fill: currentColor;
+    }
+
+    .store-label {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .store-label small {
+      margin-bottom: 3px;
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .tiktok-content {
+      margin-top: 30px;
+    }
+
     .steps {
-      background: #f7fafc;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 30px;
-      border: 2px solid #e2e8f0;
+      padding: 26px;
+      background: #f8f7fc;
+      border: 2px solid var(--line);
+      border-radius: 18px;
     }
 
     .step {
       display: flex;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       text-align: left;
     }
 
@@ -113,52 +216,46 @@
     }
 
     .step-number {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      margin-right: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-      margin-right: 16px;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-weight: 750;
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(109, 92, 231, 0.28);
     }
 
-    .step-content h4 {
+    .step h2 {
       font-size: 16px;
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 4px;
+      line-height: 1.35;
     }
 
-    .step-content h4 .menu-dots {
-      font-size: 20px;
-    }
-
-    .step-content h4 .browser-text {
-      font-size: 16px;
+    .instruction-gif {
+      width: 100%;
+      margin-top: 18px;
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(35, 24, 78, 0.12);
     }
 
     .arrow-indicator {
       position: fixed;
       top: 10px;
-      right: 2px;
-      font-size: 28px;
-      animation: bounce 2s infinite;
-      z-index: 1000;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      right: 4px;
+      z-index: 10;
+      width: 55px;
+      height: 55px;
       display: none;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      font-size: 36px;
+      animation: bounce 2s infinite;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
     }
 
     .arrow-indicator.visible {
@@ -166,153 +263,127 @@
     }
 
     @keyframes bounce {
-
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        transform: translateY(0);
-      }
-
-      40% {
-        transform: translateY(-5px);
-      }
-
-      60% {
-        transform: translateY(-3px);
-      }
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-7px); }
+      60% { transform: translateY(-3px); }
     }
 
-    @media (max-width: 480px) {
-      .container {
-        margin: 20px;
-        padding: 30px 20px;
+    @media (max-width: 620px) {
+      body {
+        padding: 20px;
+        align-items: flex-start;
       }
 
-      h1 {
-        font-size: 20px;
+      .card {
+        padding: 34px 22px;
+        border-radius: 24px;
       }
 
       .app-logo {
-        width: 70px;
-        height: 70px;
+        width: 74px;
+        height: 74px;
       }
 
-      .steps {
-        padding: 20px;
+      .lead {
+        font-size: 16px;
       }
 
-      .arrow-indicator.visible {
-        top: 10px;
-        font-size: 40px;
-        height: 60px;
+      .store-buttons {
+        grid-template-columns: 1fr;
       }
     }
   </style>
+
   <script data-goatcounter="https://quickdraw.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
-  <div class="arrow-indicator visible">👆</div>
+  <div class="arrow-indicator" aria-hidden="true">👆</div>
 
-  <div class="container">
-    <img src="https://i.ibb.co/S7X3h6L8/QD.png" alt="Quick Draw App Logo" class="app-logo">
+  <main class="card">
+    <img src="https://i.ibb.co/S7X3h6L8/QD.png" alt="Quick Draw" class="app-logo">
+    <h1 id="page-title">Get Quick Draw</h1>
+    <p class="lead" id="page-description">Turn your phone into a pistol and challenge your friends to a cowboy duel. Who draws fastest?</p>
 
-    <h1 id="page-title">Open in App Store</h1>
-
-    <div class="steps" id="steps-container">
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h4>Tap <strong class="menu-dots">⋯</strong> in the top right corner ↗️</h4>
-        </div>
+    <section class="desktop-content" id="desktop-content">
+      <div class="qr-frame">
+        <img id="qr-code" alt="Scan to open Quick Draw on your phone">
       </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h4>Tap <strong class="browser-text">"Open in browser"</strong></h4>
-        </div>
+
+      <p class="scan-title">Point your phone camera at the code</p>
+      <p class="scan-copy">It opens this page on your phone and takes you to the right app store automatically.</p>
+
+      <div class="divider">ON YOUR PHONE? TAP BELOW</div>
+
+      <div class="store-buttons">
+        <a class="store-button" href="https://apps.apple.com/app/id6743475997">
+          <svg class="store-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17.05 12.54c-.03-3.05 2.49-4.53 2.6-4.6a5.58 5.58 0 0 0-4.39-2.37c-1.84-.2-3.62 1.1-4.56 1.1-.95 0-2.4-1.08-3.96-1.05a5.8 5.8 0 0 0-4.89 2.98c-2.12 3.67-.54 9.06 1.49 12.03 1.01 1.45 2.2 3.08 3.76 3.02 1.52-.06 2.09-.97 3.92-.97 1.82 0 2.36.97 3.94.93 1.64-.02 2.67-1.46 3.65-2.92a12 12 0 0 0 1.67-3.4 5.25 5.25 0 0 1-3.23-4.75ZM14.06 3.62A5.38 5.38 0 0 0 15.29 0a5.5 5.5 0 0 0-3.55 1.72 5.14 5.14 0 0 0-1.27 3.47 4.55 4.55 0 0 0 3.59-1.57Z"/>
+          </svg>
+          <span class="store-label"><small>Download on the</small>App Store</span>
+        </a>
+
+        <a class="store-button" href="https://play.google.com/store/apps/details?id=com.shahan.quickdrawandroid">
+          <svg class="store-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.52 2.14a1.2 1.2 0 0 0-.27.78v18.16c0 .3.1.57.28.78l10.18-9.87L3.52 2.14Zm10.9 10.55-2.58 2.5-7.2 6.98c.3.1.66.06.98-.12l11.94-6.76-3.14-2.6Zm4.18-3.04-3.4 2.34 3.41 2.33 1.76-1c.84-.47.84-1.18 0-1.66l-1.77-1.01ZM4.62 1.83l9.8 9.47 3.15-2.6L5.62 1.94a1.2 1.2 0 0 0-1-.11Z"/>
+          </svg>
+          <span class="store-label"><small>GET IT ON</small>Google Play</span>
+        </a>
       </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h4>Done! 🎉</h4>
-        </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="gif-container">
-      <img src="https://s14.gifyu.com/images/bT8kB.gif" alt="Guide on how to open in browser" class="instruction-gif">
-    </div>
-  </div>
-
-  <script>
-    // Detect platform
-    const ua = navigator.userAgent.toLowerCase();
-
-    const isTikTok = ua.includes('tiktok') ||
-      document.referrer.toLowerCase().includes('tiktok') ||
-      ua.includes('bytedance');
-
-    const isAndroid = ua.includes('android');
-
-    // Update title and steps based on platform
-    const title = document.getElementById('page-title');
-    const stepsContainer = document.getElementById('steps-container');
-
-    // Show arrow only inside TikTok's in-app browser
-    if (isTikTok) {
-      const arrow = document.querySelector('.arrow-indicator');
-      arrow.classList.add('visible');
-
-    }
-
-    if (isAndroid) {
-      title.textContent = 'Open in Play Store';
-      stepsContainer.innerHTML = `
+    <section class="tiktok-content" id="tiktok-content">
+      <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
-          <div class="step-content">
-            <h4>Tap <strong class="menu-dots">⋯</strong> in the top right corner ↗️</h4>
-          </div>
+          <h2>Tap <strong>⋯</strong> in the top right corner ↗️</h2>
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <div class="step-content">
-            <h4>Tap <strong class="browser-text">"Open in Chrome"</strong></h4>
-          </div>
+          <h2>Tap <strong id="browser-action">“Open in browser”</strong></h2>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <div class="step-content">
-            <h4>Done! 🎉</h4>
-          </div>
+          <h2>Done! 🎉</h2>
         </div>
-      `;
-    }
-    // iOS/unknown: default content is already in the HTML, no JS override needed
+      </div>
 
-    // Redirect logic
-    try {
-      if (!isTikTok) {
-        if (isAndroid) {
-          window.location.href = "intent://details?id=com.shahan.quickdrawandroid#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.shahan.quickdrawandroid;end";
-        } else {
-          window.location.href = "https://apps.apple.com/app/id6743475997";
-        }
-      }
-    } catch (error) {
-      console.log('JavaScript error:', error);
-    }
+      <img src="https://s14.gifyu.com/images/bT8kB.gif" alt="How to open the page in your browser" class="instruction-gif">
+    </section>
+  </main>
 
-    // Show GIF after 0.5s
-    const gifContainer = document.querySelector('.gif-container');
-    setTimeout(function () {
-      if (gifContainer) {
-        gifContainer.classList.add('show');
+  <script>
+    const ua = navigator.userAgent.toLowerCase();
+    const isTikTok = ua.includes("tiktok") ||
+      ua.includes("bytedance") ||
+      document.referrer.toLowerCase().includes("tiktok");
+    const isAndroid = ua.includes("android");
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isMobile = isAndroid || isIOS;
+
+    const desktopContent = document.getElementById("desktop-content");
+    const tiktokContent = document.getElementById("tiktok-content");
+    const pageTitle = document.getElementById("page-title");
+    const pageDescription = document.getElementById("page-description");
+
+    if (isTikTok) {
+      pageTitle.textContent = isAndroid ? "Open in Play Store" : "Open in App Store";
+      pageDescription.textContent = "Open this page in your browser to continue.";
+      document.getElementById("browser-action").textContent = isAndroid ? "“Open in Chrome”" : "“Open in browser”";
+      document.querySelector(".arrow-indicator").classList.add("visible");
+      tiktokContent.classList.add("visible");
+    } else if (isMobile) {
+      if (isAndroid) {
+        window.location.replace("intent://details?id=com.shahan.quickdrawandroid#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.shahan.quickdrawandroid;end");
+      } else {
+        window.location.replace("https://apps.apple.com/app/id6743475997");
       }
-    }, 500);
+    } else {
+      const pageUrl = window.location.origin + window.location.pathname;
+      const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=232x232&margin=0&data=" + encodeURIComponent(pageUrl);
+      document.getElementById("qr-code").src = qrUrl;
+      desktopContent.classList.add("visible");
+    }
   </script>
 </body>
 
